@@ -1,0 +1,61 @@
+ion-grid {
+    h6 {
+        color: gray;
+    }
+    h4 {
+        font-weight: bold;
+    }
+
+    #main-block {
+        padding: 10px 25px 10px 25px;
+        .main-card {
+            width: 100%;
+            border-radius: 8px;
+            height: 200px;
+            padding: 10px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+                rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+            background: var(--ion-color-primary);
+
+            h1,
+            h3,
+            h5,
+            h6 {
+                color: white;
+                font-weight: bold;
+            }
+        }
+
+        ion-icon {
+            position: relative;
+            float: right;
+            width: 28px;
+            height: 50px;
+            color: white;
+        }
+    }
+
+    ion-icon {
+        margin-left: 5px;
+    }
+
+    #transactions {
+        background: rgba(0, 0, 0, 0.8);
+        width: 100%;
+        min-height: 400px;
+        height: auto;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+
+        h3 {
+            text-align: center;
+            color: #fff;
+        }
+
+        ion-label {
+            h3 {
+                color: #000 !important;
+            }
+        }
+    }
+}
