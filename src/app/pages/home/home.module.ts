@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
+import { ApiServiceService } from 'src/app/services/api-service.service';
+import { ToastProvider } from 'src/app/provides/toast';
+import { SystemMessages } from 'src/app/provides/systemMessages';
 
 @NgModule({
   imports: [
@@ -15,6 +18,7 @@ import { HomePage } from './home.page';
     IonicModule,
     HomePageRoutingModule
   ],
+  providers: [ApiServiceService, ToastProvider, SystemMessages],
   declarations: [HomePage]
 })
 export class HomePageModule {}
