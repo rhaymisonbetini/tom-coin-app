@@ -24,38 +24,11 @@ export class HomePage implements OnInit {
   }
 
   minarate() {
-    this.apiService.minetate().subscribe((res: number) => {
+    this.apiService.createBlockChain().subscribe((res: number) => {
       console.log(res)
-      this.minerateLooping(res);
     }, error => {
       console.log(error);
       this.toastProvider.erroToast(this.sistemMessage.genericError);
     })
   }
-
-
-  minerateLooping(proof: number) {
-    let new_proof: number = 1;
-    let haveHashed: boolean = false;
-    while (!haveHashed) {
-      var shared256: string = sha256((new_proof ** 2 - proof ** 2).toString())
-      let verifyer = shared256.substr(0, 4)
-      if (verifyer == this.proffVariable) {
-        this.createBlockChain(new_proof)
-        haveHashed = true
-      } else {
-        new_proof++
-      }
-    }
-  }
-
-  createBlockChain(new_proof: number) {
-    this.apiService.createBlockChain(new_proof).subscribe((res: any) => {
-      console.log(res);
-    }, error => {
-      console.log(error);
-      this.toastProvider.erroToast(this.sistemMessage.genericError);
-    })
-  }
-
 }

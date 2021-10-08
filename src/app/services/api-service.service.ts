@@ -12,13 +12,8 @@ export class ApiServiceService {
     private urlSericeService: UrlServiceService,
   ) { }
 
-
-  minetate() {
-    return this.http.get(this.urlSericeService.url + 'minerate');
-  }
-
-  createBlockChain(newproff: number) {
-    return this.http.get(this.urlSericeService.url + `create-new-block/${newproff}`);
+  createBlockChain() {
+    return this.http.get(this.urlSericeService.url + `create-block`);
   }
 
 }
