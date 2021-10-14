@@ -17,6 +17,10 @@ export class ApiServiceService {
     return this.http.post(this.urlSericeService.url + `login`, data);
   }
 
+  walletInformation(email: string) {
+    return this.http.get(this.urlSericeService.url + `user-wallet-information/${email}`);
+  }
+
   createBlockChain() {
     return this.http.get(this.urlSericeService.url + `create-block`);
   }

@@ -12,11 +12,11 @@
     </ion-row>
     <ion-row>
       <ion-col id="main-block" size="12" class="ion-padding">
-        <div class="main-card">
+        <div class="main-card" *ngIf="wallet">
           <ion-icon name="repeat-outline"></ion-icon>
           <h5>Saldo TomCoin</h5>
-          <h1>TC 514.0014587</h1>
-          <h3>BRL 124.00</h3>
+          <h1>TC {{wallet.tom_coin_cotation}}</h1>
+          <h3>BRL {{wallet.user_valuer}} / {{wallet.formated_value}}</h3>
           <h6>Saldo atualizado a cada 10 min</h6>
         </div>
       </ion-col>
