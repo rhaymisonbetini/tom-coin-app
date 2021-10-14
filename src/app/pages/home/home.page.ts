@@ -15,7 +15,7 @@ import { ApiServiceService } from 'src/app/services/api-service.service';
 export class HomePage implements OnInit {
 
   protected wallet: WalletInteface;
-  protected transactions: TransactionsInterface;
+  protected transactions: Array<TransactionsInterface> = [];
 
   protected avatar: string = 'https://image.freepik.com/vetores-gratis/ilustracao-de-um-jovem-elegante-homem-barbudo-bonito-dos-desenhos-animados-avatar-de-perfil-moderno_15870-758.jpg'
 
@@ -55,7 +55,7 @@ export class HomePage implements OnInit {
 
   getTransactions() {
     let email: string = sessionStorage.getItem('email');
-    this.apiService.transactions(email).subscribe((res: TransactionsInterface) => {
+    this.apiService.transactions(email).subscribe((res: Array<TransactionsInterface>) => {
       this.loadingProvider.loadingDismiss();
       this.transactions = res;
     }, error => {

@@ -31,57 +31,23 @@
     <ion-row>
       <ion-col id="transactions">
         <h3>Últimas transações</h3>
-        <ion-item>
-          <ion-avatar slot="start">
-            <img src="../../../assets/images/TomCoin.png">
-          </ion-avatar>
-          <ion-label>
-            <h2>TC 15</h2>
-            <h4>I can handle myself</h4>
-            <p>04/10/2021</p>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-avatar slot="start">
-            <img src="../../../assets/images/TomCoin.png">
-          </ion-avatar>
-          <ion-label>
-            <h2>TC 15</h2>
-            <h4>I can handle myself</h4>
-            <p>04/10/2021</p>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-avatar slot="start">
-            <img src="../../../assets/images/TomCoin.png">
-          </ion-avatar>
-          <ion-label>
-            <h2>TC 15</h2>
-            <h4>I can handle myself</h4>
-            <p>04/10/2021</p>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-avatar slot="start">
-            <img src="../../../assets/images/TomCoin.png">
-          </ion-avatar>
-          <ion-label>
-            <h2>TC 15</h2>
-            <h4>I can handle myself</h4>
-            <p>04/10/2021</p>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-avatar slot="start">
-            <img src="../../../assets/images/TomCoin.png">
-          </ion-avatar>
-          <ion-label>
-            <h2>TC 15</h2>
-            <h4>I can handle myself</h4>
-            <p>04/10/2021</p>
-          </ion-label>
-        </ion-item>
 
+        <div *ngIf="transactions && transactions.length > 0; else notTransactionsBlock">
+          <ion-item *ngFor="let transaction of transactions; index as i">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/TomCoin.png">
+            </ion-avatar>
+            <ion-label>
+              <h2>TC {{transaction.cash}}</h2>
+              <h4>De: {{transaction.from}}</h4>
+              <h4>Para: {{transaction.to}}</h4>
+              <p>{{transaction.date}}</p>
+            </ion-label>
+          </ion-item>-
+        </div>
+        <ng-template #notTransactionsBlock>
+          <h3>Sem registro</h3>
+        </ng-template>
       </ion-col>
     </ion-row>
   </ion-grid>
