@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { LoginInterface } from '../interfaces/login.interface';
+import { WalletInteface } from '../interfaces/wallet.interface';
 import { UrlServiceService } from './url-service.service';
 
 @Injectable({
@@ -14,11 +16,15 @@ export class ApiServiceService {
 
 
   login(data: { email: string, password: string }) {
-    return this.http.post(this.urlSericeService.url + `login`, data);
+    return this.http.post<LoginInterface>(this.urlSericeService.url + `login`, data);
   }
 
   walletInformation(email: string) {
-    return this.http.get(this.urlSericeService.url + `user-wallet-information/${email}`);
+    return this.http.get<WalletInteface>(this.urlSericeService.url + `user-wallet-information/${email}`);
+  }
+
+  transactions(email: string){
+    return this.http.get(this.urlSericeService.url + `transactions/${email}`);
   }
 
   createBlockChain() {

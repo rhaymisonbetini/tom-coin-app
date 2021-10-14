@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { TransactionsInterface } from 'src/app/interfaces/transactions.interface';
 import { WalletInteface } from 'src/app/interfaces/wallet.interface';
 import { LoadingProvider } from 'src/app/provides/loading';
 import { SystemMessages } from 'src/app/provides/systemMessages';
@@ -14,6 +15,8 @@ import { ApiServiceService } from 'src/app/services/api-service.service';
 export class HomePage implements OnInit {
 
   protected wallet: WalletInteface;
+  protected transactions: TransactionsInterface;
+
   protected avatar: string = 'https://image.freepik.com/vetores-gratis/ilustracao-de-um-jovem-elegante-homem-barbudo-bonito-dos-desenhos-animados-avatar-de-perfil-moderno_15870-758.jpg'
 
   constructor(
@@ -32,8 +35,8 @@ export class HomePage implements OnInit {
     this.loadingProvider.loadingPresent(this.sistemMessage.getWallet);
     let email: string = sessionStorage.getItem('email');
     this.apiService.walletInformation(email).subscribe((res: WalletInteface) => {
-      this.loadingProvider.loadingDismiss();
       this.wallet = res;
+      this.getTransactions();
     }, error => {
       if (error.message = 'USER_NOT_FOUND') {
         sessionStorage.clear();
@@ -42,6 +45,23 @@ export class HomePage implements OnInit {
       } else if (error.message = 'WALLET_NOT_FIND') {
         sessionStorage.clear();
         this.toastProvider.erroToast(this.sistemMessage.notFoundWallet)
+        this.navController.navigateRoot('');
+      } else {
+        this.loadingProvider.loadingDismiss();
+        this.toastProvider.erroToast(this.sistemMessage.genericError);
+      }
+    })
+  }
+
+  getTransactions() {
+    let email: string = sessionStorage.getItem('email');
+    this.apiService.transactions(email).subscribe((res: TransactionsInterface) => {
+      this.loadingProvider.loadingDismiss();
+      this.transactions = res;
+    }, error => {
+      if (error.message = 'USER_NOT_FOUND') {
+        sessionStorage.clear();
+        this.toastProvider.erroToast(this.sistemMessage.notFoundUser)
         this.navController.navigateRoot('');
       } else {
         this.loadingProvider.loadingDismiss();
