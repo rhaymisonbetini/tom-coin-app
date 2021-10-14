@@ -12,6 +12,11 @@ export class ApiServiceService {
     private urlSericeService: UrlServiceService,
   ) { }
 
+
+  login(data: { email: string, password: string }) {
+    return this.http.post(this.urlSericeService.url + `login`, data);
+  }
+
   createBlockChain() {
     return this.http.get(this.urlSericeService.url + `create-block`);
   }
