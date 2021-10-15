@@ -1,9 +1,39 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>transaction</ion-title>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button color="light" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Transações</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-grid>
+    <form [formGroup]="transferForm">
+      <ion-row class="ion-padding">
+        <ion-col size="12">
+          <h4><strong>Você possui {{tomCoin}} TomCoins disponíveis</strong></h4>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">Carteira de testino</ion-label>
+            <ion-input formControlName="to_key" type="text" placeholder="Informe a carteira"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">TomCoin</ion-label>
+            <ion-input formControlName="cash" type="number" placeholder="Quantidade a ser transferida"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button (click)="transfer()" expand="full" color="primary" size="large" [disabled]="transferForm.invalid">
+            Transferir
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
 
 </ion-content>

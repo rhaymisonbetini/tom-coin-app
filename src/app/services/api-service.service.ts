@@ -38,4 +38,8 @@ export class ApiServiceService {
     return this.http.get<BlockChainInterface>(this.urlSericeService.url + `blockchain`)
   }
 
+  transfer(datas: { to_key: string, cash: number, email: string }) {
+    return this.http.post<string>(this.urlSericeService.url + `transaction`, datas)
+  }
+
 }

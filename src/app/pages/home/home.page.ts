@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { MinerateInterface } from 'src/app/interfaces/minerate.interface';
 import { TransactionsInterface } from 'src/app/interfaces/transactions.interface';
@@ -23,6 +24,7 @@ export class HomePage implements OnInit {
   protected avatar: string = 'https://image.freepik.com/vetores-gratis/ilustracao-de-um-jovem-elegante-homem-barbudo-bonito-dos-desenhos-animados-avatar-de-perfil-moderno_15870-758.jpg'
 
   constructor(
+    private router: Router,
     private apiService: ApiServiceService,
     private loadingProvider: LoadingProvider,
     private toastProvider: ToastProvider,
@@ -33,6 +35,11 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getWalletInformations();
+  }
+
+  transaction() {
+    sessionStorage.setItem('TOM_COIN_USER', this.wallet.user_tom_coin.toString())
+    this.router.navigateByUrl(`transaction`);
   }
 
   getWalletInformations(solitude?: boolean) {

@@ -14,6 +14,9 @@ export class SystemMessages {
 
     public getWallet: string = 'Carregando dados de sua carteira';
 
-    public getBlockChain:string = 'Carregando BlockChain';
+    public getBlockChain: string = 'Carregando BlockChain';
+
+    public inTransfer: string = 'Realizando transferência';
+    public transferSuccess: string = 'Transferencia realizada com sucesso! Logo sera adicionada ao Blockchain';
 
 }
