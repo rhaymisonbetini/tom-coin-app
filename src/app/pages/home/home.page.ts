@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { MinerateInterface } from 'src/app/interfaces/minerate.interface';
 import { TransactionsInterface } from 'src/app/interfaces/transactions.interface';
 import { WalletInteface } from 'src/app/interfaces/wallet.interface';
+import { AlertProvider } from 'src/app/provides/alert';
 import { LoadingProvider } from 'src/app/provides/loading';
 import { SystemMessages } from 'src/app/provides/systemMessages';
 import { ToastProvider } from 'src/app/provides/toast';
@@ -16,6 +18,7 @@ export class HomePage implements OnInit {
 
   protected wallet: WalletInteface;
   protected transactions: Array<TransactionsInterface> = [];
+  protected isMinerating: boolean = false;
 
   protected avatar: string = 'https://image.freepik.com/vetores-gratis/ilustracao-de-um-jovem-elegante-homem-barbudo-bonito-dos-desenhos-animados-avatar-de-perfil-moderno_15870-758.jpg'
 
@@ -23,6 +26,7 @@ export class HomePage implements OnInit {
     private apiService: ApiServiceService,
     private loadingProvider: LoadingProvider,
     private toastProvider: ToastProvider,
+    private alertProvider: AlertProvider,
     private sistemMessage: SystemMessages,
     private navController: NavController
   ) { }
@@ -31,12 +35,12 @@ export class HomePage implements OnInit {
     this.getWalletInformations();
   }
 
-  getWalletInformations() {
-    this.loadingProvider.loadingPresent(this.sistemMessage.getWallet);
+  getWalletInformations(solitude?: boolean) {
+    !solitude ? this.loadingProvider.loadingPresent(this.sistemMessage.getWallet) : null;
     let email: string = sessionStorage.getItem('email');
     this.apiService.walletInformation(email).subscribe((res: WalletInteface) => {
       this.wallet = res;
-      this.getTransactions();
+      !solitude ? this.getTransactions() : null;
     }, error => {
       if (error.message = 'USER_NOT_FOUND') {
         sessionStorage.clear();
@@ -71,8 +75,13 @@ export class HomePage implements OnInit {
   }
 
   minarate() {
-    this.apiService.createBlockChain().subscribe((res: number) => {
-      console.log(res)
+    this.isMinerating = true;
+    this.apiService.createBlockChain().subscribe((res: MinerateInterface) => {
+      this.isMinerating = false;
+      this.alertProvider.susscessAlert(`
+      Parabens você minerou um novo bloco no blockchain. Sua recompensa foi de 1 TomCoin
+      `)
+      this.getWalletInformations(true)
     }, error => {
       console.log(error);
       this.toastProvider.erroToast(this.sistemMessage.genericError);

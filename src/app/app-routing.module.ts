@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'transaction',
     loadChildren: () => import('./pages/transaction/transaction.module').then( m => m.TransactionPageModule)
+  },
+  {
+    path: 'block-chain',
+    loadChildren: () => import('./pages/block-chain/block-chain.module').then( m => m.BlockChainPageModule)
   }
 ];
 

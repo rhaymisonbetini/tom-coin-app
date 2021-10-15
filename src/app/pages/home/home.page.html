@@ -10,12 +10,13 @@
         <img [src]="avatar" alt="">
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="wallet">
+      <span class="ion-padding-left">Cotação: 1 TC - {{wallet.tom_coin_cotation}}</span>
       <ion-col id="main-block" size="12" class="ion-padding">
-        <div class="main-card" *ngIf="wallet">
+        <div class="main-card">
           <ion-icon name="repeat-outline"></ion-icon>
           <h5>Saldo TomCoin</h5>
-          <h1>TC {{wallet.tom_coin_cotation}}</h1>
+          <h1>TC {{wallet.user_tom_coin}}</h1>
           <h3>BRL {{wallet.user_valuer}} / {{wallet.formated_value}}</h3>
           <h6>Saldo atualizado a cada 10 min</h6>
         </div>
@@ -23,8 +24,15 @@
     </ion-row>
     <ion-row>
       <ion-col size="12">
-        <ion-button (click)="minarate()" expand="full" color="primary" size="large">Minerar
-          <ion-icon name="construct-outline"></ion-icon>
+        <ion-button (click)="minarate()" expand="full" color="primary" size="large">
+          <ng-container *ngIf="!isMinerating;else minerateBlock">
+            Minerar
+            <ion-icon name="construct-outline"></ion-icon>
+          </ng-container>
+          <ng-template #minerateBlock>
+            Minerando
+            <ion-spinner name="bubbles"></ion-spinner>
+          </ng-template>
         </ion-button>
       </ion-col>
     </ion-row>

@@ -14,4 +14,6 @@ export class SystemMessages {
 
     public getWallet: string = 'Carregando dados de sua carteira';
 
+    public getBlockChain:string = 'Carregando BlockChain';
+
 }
