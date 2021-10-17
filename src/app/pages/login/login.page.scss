@@ -5,7 +5,7 @@ ion-content {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    --background: rgba(0, 0, 0, 0.8);
+    --background: transparent url("../../../assets/images/background.jpg") no-repeat center center / cover !important;
 
     ion-row {
         width: 100%;
@@ -16,8 +16,8 @@ ion-content {
         text-align: center;
         padding: 40px 10px 40px 10px;
 
-        ion-icon{
-            margin-left:5px;
+        ion-icon {
+            margin-left: 5px;
         }
     }
 
@@ -26,12 +26,11 @@ ion-content {
         height: 150px;
     }
 
-    ion-item{
+    ion-item {
         border-radius: 8px !important;
 
-        ion-button{
-            height:100px;
+        ion-button {
+            height: 100px;
         }
     }
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { MinerateInterface } from 'src/app/interfaces/minerate.interface';
@@ -9,6 +9,8 @@ import { LoadingProvider } from 'src/app/provides/loading';
 import { SystemMessages } from 'src/app/provides/systemMessages';
 import { ToastProvider } from 'src/app/provides/toast';
 import { ApiServiceService } from 'src/app/services/api-service.service';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-home',
@@ -17,11 +19,18 @@ import { ApiServiceService } from 'src/app/services/api-service.service';
 })
 export class HomePage implements OnInit {
 
+  @ViewChild('barCanvas') private barCanvas: ElementRef;
+  public readyToPlay: Boolean = false;
+  protected barChart: any;
+
   protected wallet: WalletInteface;
   protected transactions: Array<TransactionsInterface> = [];
   protected isMinerating: boolean = false;
 
   protected avatar: string = 'https://image.freepik.com/vetores-gratis/ilustracao-de-um-jovem-elegante-homem-barbudo-bonito-dos-desenhos-animados-avatar-de-perfil-moderno_15870-758.jpg'
+
+  protected timer: Array<string> = [];
+  protected valuation: Array<number> = [];
 
   constructor(
     private router: Router,
@@ -33,16 +42,40 @@ export class HomePage implements OnInit {
     private navController: NavController
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+  
+  ionViewDidEnter(): void {
     this.getWalletInformations();
+    this.getTomCoinHistory()
+    this.barChartMethod();
+    setTimeout(() => {
+      this.fadeOutEffect()
+    }, 500);
   }
 
-  transaction() {
+
+  fadeOutEffect() {
+    document.getElementById('delay').classList.add('step');
+    document.getElementById('login-body').classList.add('step-opacity')
+
+    setTimeout(() => {
+      this.readyToPlay = true;
+    }, 2000)
+
+  }
+
+
+  // ionViewDidLeave(): void {
+  //   this.barChart.destroy();
+  // }
+
+  transaction(): void {
     sessionStorage.setItem('TOM_COIN_USER', this.wallet.user_tom_coin.toString())
     this.router.navigateByUrl(`transaction`);
   }
 
-  getWalletInformations(solitude?: boolean) {
+  getWalletInformations(solitude?: boolean): void {
     !solitude ? this.loadingProvider.loadingPresent(this.sistemMessage.getWallet) : null;
     let email: string = sessionStorage.getItem('email');
     this.apiService.walletInformation(email).subscribe((res: WalletInteface) => {
@@ -64,7 +97,7 @@ export class HomePage implements OnInit {
     })
   }
 
-  getTransactions() {
+  getTransactions(): void {
     let email: string = sessionStorage.getItem('email');
     this.apiService.transactions(email).subscribe((res: Array<TransactionsInterface>) => {
       this.loadingProvider.loadingDismiss();
@@ -81,7 +114,11 @@ export class HomePage implements OnInit {
     })
   }
 
-  minarate() {
+  getTomCoinHistory(): void {
+
+  }
+
+  minarate(): void {
     this.isMinerating = true;
     this.apiService.createBlockChain().subscribe((res: MinerateInterface) => {
       this.isMinerating = false;
@@ -91,6 +128,41 @@ export class HomePage implements OnInit {
       this.getWalletInformations(true)
     }, error => {
       console.log(error);
+      this.toastProvider.erroToast(this.sistemMessage.genericError);
+    })
+  }
+
+  barChartMethod(): void {
+
+    this.apiService.tomCoinHistory().subscribe((res: Array<any>) => {
+      for (let i = 0; i < res.length; i++) {
+        this.timer.push(res[i].date);
+        this.valuation.push(res[i].cash)
+      }
+
+      this.barChart = new Chart(this.barCanvas.nativeElement, {
+        type: 'bar',
+        data: {
+          labels: this.timer,
+          datasets: [{
+            label: 'Histórico',
+            data: this.valuation,
+            backgroundColor: [
+              'rgba(75,192,192,1)'
+            ],
+            borderColor: [
+              'rgba(75,192,192,1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+
+          }
+        }
+      });
+    }, error => {
       this.toastProvider.erroToast(this.sistemMessage.genericError);
     })
   }

@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'block-chain',
     loadChildren: () => import('./pages/block-chain/block-chain.module').then( m => m.BlockChainPageModule)
+  },
+  {
+    path: 'machine-learning',
+    loadChildren: () => import('./pages/machine-learning/machine-learning.module').then( m => m.MachineLearningPageModule)
   }
 ];
 

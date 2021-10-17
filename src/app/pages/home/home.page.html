@@ -1,6 +1,9 @@
 <ion-content>
+  <div class="delay" id="delay" *ngIf="!readyToPlay;">
+    <!-- <ion-spinner color="primary"></ion-spinner> -->
+  </div>
 
-  <ion-grid>
+  <ion-grid id="login-body">
     <ion-row>
       <ion-col size="9">
         <h6>Seja bem-vindo</h6>
@@ -22,6 +25,13 @@
         </div>
       </ion-col>
     </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <canvas #barCanvas></canvas>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
       <ion-col size="12">
         <ion-button (click)="minarate()" expand="full" color="primary" size="large">
@@ -36,6 +46,7 @@
         </ion-button>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col id="transactions">
         <h3>Últimas transações</h3>

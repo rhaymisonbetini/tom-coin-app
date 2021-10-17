@@ -19,4 +19,6 @@ export class SystemMessages {
     public inTransfer: string = 'Realizando transferência';
     public transferSuccess: string = 'Transferencia realizada com sucesso! Logo sera adicionada ao Blockchain';
 
+    public machineLearing: string = 'Prevendo cotação da TomCoin';
+
 }

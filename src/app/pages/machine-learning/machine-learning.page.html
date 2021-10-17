@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Previsão</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <strong> Tom Coin</strong>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <h4>Com base no histórico de cotação da TomCoin
+        nós fazemos uma analise com a previsão dos valores
+        para os próximos 5 dias</h4>
+      </ion-col>
+      <ion-col class="image" size="12">
+        <img src="../../../assets/images/TomCoin.png" alt="">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

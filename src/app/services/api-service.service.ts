@@ -42,4 +42,12 @@ export class ApiServiceService {
     return this.http.post<string>(this.urlSericeService.url + `transaction`, datas)
   }
 
+  machineLearing() {
+    return this.http.get<Array<any>>(this.urlSericeService.url + `machine-learning`);
+  }
+
+  tomCoinHistory() {
+    return this.http.get<Array<any>>(this.urlSericeService.url + `tom-coin-history`);
+  }
+
 }

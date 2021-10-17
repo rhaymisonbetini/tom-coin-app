@@ -1,0 +1,18 @@
+ion-col {
+    h4 {
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.image {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 120px;
+        height: 120px;
+    }
+}
