@@ -44,10 +44,14 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   ionViewDidEnter(): void {
-    this.getWalletInformations();
+
+    let next = sessionStorage.getItem('NEXT');
+    sessionStorage.removeItem('NEXT');
+    next ? this.getWalletInformations(true) : this.getWalletInformations(true);
     this.getTomCoinHistory()
+
     this.barChartMethod();
     setTimeout(() => {
       this.fadeOutEffect()
@@ -80,7 +84,7 @@ export class HomePage implements OnInit {
     let email: string = sessionStorage.getItem('email');
     this.apiService.walletInformation(email).subscribe((res: WalletInteface) => {
       this.wallet = res;
-      !solitude ? this.getTransactions() : null;
+      this.getTransactions();
     }, error => {
       if (error.message = 'USER_NOT_FOUND') {
         sessionStorage.clear();

@@ -25,6 +25,10 @@ export class BlockChainPage implements OnInit {
     this.getBlockChain();
   }
 
+  ionViewDidEnter(){
+    sessionStorage.setItem('NEXT', 'TRUE');
+  }
+
   getBlockChain() {
     this.loadingProvider.loadingPresent(this.sistemMessage.getBlockChain)
     this.apiService.blockchain().subscribe((res: BlockChainInterface) => {

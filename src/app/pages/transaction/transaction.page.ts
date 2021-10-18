@@ -26,6 +26,7 @@ export class TransactionPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    sessionStorage.setItem('NEXT', 'TRUE');
     this.transferForm = this.formBuilder.group({
       to_key: ['', [Validators.required]],
       email: [sessionStorage.getItem('email'), [Validators.required, Validators.email]],

@@ -31,6 +31,10 @@ export class MachineLearningPage implements OnInit {
     this.getChartDatas()
   }
 
+  ionViewDidEnter(){
+    sessionStorage.setItem('NEXT', 'TRUE');
+  }
+
   getChartDatas() {
     this.loadingProvider.loadingPresent(this.systemMessages.machineLearing);
     this.apiService.machineLearing().subscribe((res: Array<any>) => {
